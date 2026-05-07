@@ -33,7 +33,7 @@ ThemeData buildAppTheme() {
       centerTitle: true,
       titleTextStyle: TextStyle(
         color: AppColors.ink,
-        fontSize: 17,
+        fontSize: 20,
         fontWeight: FontWeight.w700,
         letterSpacing: -0.3,
       ),
@@ -58,10 +58,10 @@ ThemeData buildAppTheme() {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
-        minimumSize: const Size.fromHeight(52),
+        minimumSize: const Size.fromHeight(56),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         textStyle: const TextStyle(
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: FontWeight.w700,
           letterSpacing: 1.2,
         ),
