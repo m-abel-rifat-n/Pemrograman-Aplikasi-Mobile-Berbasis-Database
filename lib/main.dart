@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'app_theme.dart';
 import 'providers/task_provider.dart';
 import 'services/auth_service.dart';
@@ -10,6 +11,8 @@ import 'pages/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('tasks');
   await initializeDateFormatting('id', null);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const DoFlowApp());
