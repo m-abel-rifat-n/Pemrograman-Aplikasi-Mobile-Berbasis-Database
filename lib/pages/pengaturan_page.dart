@@ -17,7 +17,7 @@ class _PengaturanPageState extends State<PengaturanPage> {
   bool _obscureNew = true;
   bool _saving = false;
   String _username = 'User';
-  final String _nim = 'NIM 21041010xxx';
+  final String _nim = 'NIM 22417600xx';
 
   @override
   void initState() {

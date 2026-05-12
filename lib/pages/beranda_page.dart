@@ -56,22 +56,6 @@ class _BerandaPageState extends State<BerandaPage> {
     });
   }
 
-  // Compute consecutive-day streak from the in-memory task list.
-  int _streakFrom(List<Task> tasks) {
-    final now = DateTime.now();
-    int streak = 0;
-    for (int i = 0; i < 30; i++) {
-      final ds = _ds(now.subtract(Duration(days: i)));
-      final count = tasks.where((t) => t.dueDate == ds && t.isDone).length;
-      if (count > 0) {
-        streak++;
-      } else if (i > 0) {
-        break;
-      }
-    }
-    return streak;
-  }
-
   String _ds(DateTime d) =>
       '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
@@ -83,7 +67,6 @@ class _BerandaPageState extends State<BerandaPage> {
     final done = tasks.where((t) => t.isDone).length;
     final undone = tasks.where((t) => !t.isDone).length;
     final weeklyCounts = _weeklyFrom(tasks);
-    final streak = _streakFrom(tasks);
 
     final now = DateTime.now();
     final dateStr = DateFormat('EEEE, d MMMM yyyy', 'id').format(now);
@@ -107,7 +90,7 @@ class _BerandaPageState extends State<BerandaPage> {
                 const SizedBox(height: 18),
                 _buildStatCards(done, undone),
                 const SizedBox(height: 14),
-                _buildWeeklyChart(weeklyCounts, streak),
+                _buildWeeklyChart(weeklyCounts),
                 const SizedBox(height: 14),
                 _buildCategoryCards(),
               ],
@@ -162,7 +145,7 @@ class _BerandaPageState extends State<BerandaPage> {
     );
   }
 
-  Widget _buildWeeklyChart(List<int> weeklyCounts, int streak) {
+  Widget _buildWeeklyChart(List<int> weeklyCounts) {
     final days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
     final todayIdx = DateTime.now().weekday - 1;
     final maxVal = weeklyCounts.isEmpty
@@ -192,22 +175,6 @@ class _BerandaPageState extends State<BerandaPage> {
                   letterSpacing: 0.4,
                 ),
               ),
-              if (streak > 0)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF3E0),
-                    borderRadius: BorderRadius.circular(99),
-                  ),
-                  child: Text(
-                    '+$streak streak 🔥',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFE65100),
-                    ),
-                  ),
-                ),
             ],
           ),
           const SizedBox(height: 16),
